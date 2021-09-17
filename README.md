@@ -116,4 +116,4 @@ PUT .kibana/_settings
 # todo list
 
 1. build api for batch data ingestion from json file or folder -- single json file ingestion complete, folder of json files pending
-2. vector search https://www.elastic.co/guide/en/elasticsearch/reference/master/query-dsl-script-score-query.html
+2. vector search https://www.elastic.co/guide/en/elasticsearch/reference/master/query-dsl-script-score-query.html - complete
