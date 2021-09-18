@@ -15,7 +15,10 @@ from elasticsearch import Elasticsearch,helpers
 
 build_vector_index(
 	index_name = "logo",
-	vector_dim_size = 3,
+	vector_fields = [{
+		"vector_name":"logo_embedding",
+		"vector_dim":3
+		}],
 	es_session = es_session,
 	vector_field_name = 'logo_embedding',
 	)
@@ -24,22 +27,22 @@ build_vector_index(
 
 def build_vector_index(
 	index_name,
-	vector_dim_size,
 	es_session,
-	vector_field_name = "vector",
+	vector_fields = [],
+	geo_point_fields = [],
 	):
+	properties = {}
+	for v in vector_fields:
+		properties[v['vector_name']] = {"type": "dense_vector", "dims": v['vector_dim']}
+	for g in geo_point_fields:
+		properties[g] = {"type": "geo_point"}
 	mapping_str = {
 	    "settings": {
 	        "number_of_shards": 10,
 	        "number_of_replicas": 1
 	    },
 	    "mappings": {
-	        "properties": {
-	            vector_field_name: {
-	                "type": "dense_vector",
-	                "dims": vector_dim_size
-	            }
-	        }
+	        "properties": properties
 	    }
 	}
 	es_session.indices.delete(index = index_name, ignore=[400, 404])
