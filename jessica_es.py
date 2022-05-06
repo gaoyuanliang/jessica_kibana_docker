@@ -135,6 +135,7 @@ def search_doc_by_filter(
 		body = triplet_query_body)
 	return [r['_source'] for r in res['hits']['hits']]
 
+'''
 def start_kibana(
 	kibana_port_number = "5145",
 	es_port_number = "9466",
@@ -159,6 +160,7 @@ def start_kibana(
 		return 'success'
 	except Exception as e:
 		return str(e)
+'''
 
 '''
 ingest a json file's data to a index
