@@ -25,7 +25,8 @@ def value_is_none(value):
 
 def start_es(
 	es_path = "/jessica/elasticsearch-6.7.1",
-	es_port_number = "9466"):
+	es_port_number = "9466",
+	es_tcp_port_number = "3671"):
 	'''
 	check if es service is already running
 	if yes, return the session
@@ -45,11 +46,12 @@ def start_es(
 	os.system(u"""
 	rm %s/config/elasticsearch.yml
 	echo "transport.host: localhost " > %s/config/elasticsearch.yml
-	echo "transport.tcp.port: 9300 " >> %s/config/elasticsearch.yml
+	echo "transport.tcp.port: %s " >> %s/config/elasticsearch.yml
 	echo "http.port: %s" >> %s/config/elasticsearch.yml
 	echo "network.host: 0.0.0.0" >> %s/config/elasticsearch.yml
 	"""%(es_path,
 		es_path,
+		es_tcp_port_number,
 		es_path,
 		es_port_number,
 		es_path,
